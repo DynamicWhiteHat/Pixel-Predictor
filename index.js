@@ -8,7 +8,7 @@ const responsetext = document.getElementById("response");
 const prompt_text = document.getElementById("prompt");
 const timerSet = document.getElementById("timerSet");
 const win = document.getElementById("winner");
-
+const reload = document.getElementById("reload");
 const popup = document.getElementById("popup");
 
 // Groq
@@ -56,7 +56,6 @@ canvas.height = window.innerHeight - canvasOffsetY;
 let isPainting = false;
 let finished =false;
 const winMessages = [
-    "You Win!",
     "Is that Picasso?",
     "Bob Ross? Is it really you?",
     "Masterpiece achieved!",
@@ -281,8 +280,7 @@ async function sendtoAI() {
     if (airesponse.toLowerCase().includes(prompt_text.textContent.toLowerCase())) {
         endTimer();
         win.textContent = winText;
-        
-        popup.classList.add('active')
+        popup.classList.add('active');
         finished = true;
         confetti.render();
     }
@@ -354,6 +352,8 @@ document.addEventListener("DOMContentLoaded", () => {
     modeSelect.addEventListener("change", () => {
         if (modeSelect.value === "normal") {
             gameMode = "normal";
+            reload.classList.remove("hide");
+            reload.classList.add('show');
             prompt_text.textContent = easyPrompt;
             clearTimer();
             colorOptions.style.display = "block";
@@ -362,6 +362,8 @@ document.addEventListener("DOMContentLoaded", () => {
             responsetext.textContent = "Start drawing to begin"
         } else if (modeSelect.value === "hard") {
             gameMode = "hard";
+            reload.classList.remove("hide");
+            reload.classList.add('show');
             prompt_text.textContent = hardPrompt;
             clearTimer();
             colorOptions.style.display = "none";
@@ -370,6 +372,8 @@ document.addEventListener("DOMContentLoaded", () => {
             responsetext.textContent =  "Start drawing to begin"
         }
         else {
+            reload.classList.remove("show");
+            reload.classList.add('hide');
             colorOptions.style.display = "none";
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             clearTimer();

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Pixel Predictor</title>
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
     <section class="container">
@@ -17,7 +18,7 @@
                 <option value="hard">Hard</option>
             </select>
             <h3>Draw: <span id="prompt">Select a mode to start</span></h3>
-            <p>Reload to change the prompt</p>
+            <p id="reload" class="hide">Reload to change the prompt</p>
             <div id="tools">
                 <h2>Tools</h2>
                 <div id="color-picker" class="hidden">
@@ -27,7 +28,7 @@
                         <input type="radio" name="color" value="green" class="green">
                         <input type="radio" name="color" value="blue" class="blue">
                         <input type="radio" name="color" value="indigo" class="indigo">
-                        <input type="radio" name="color" value="violet" class="brown">
+                        <input type="radio" name="color" value="brown" class="brown">
                         <input type="radio" name="color" value="black" class="black" checked> 
                 </div>
                 <button id="draw">Draw</button>

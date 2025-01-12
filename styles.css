@@ -81,6 +81,7 @@ p {
 #tools button:hover {
     transform: translateY(-2px);
 }
+
 #popup button {
     font-family: "Roboto", sans-serif;
     background-color: #53656D;
@@ -90,6 +91,7 @@ p {
     color: white;
     padding: 10px;
     position: relative;
+    z-index: 9999;
 }
 
 #popup button:hover {
@@ -228,5 +230,18 @@ input[type='radio']:checked:after {
 }
 
 .popup.active {
+    visibility: visible;
+}
+
+p.hide {
+    font-size: 12px;
+    visibility: hidden;
+    margin-bottom: 0;
+}
+
+p.show {
+    font-size: 12px;
+    margin-bottom: 0;
+
     visibility: visible;
 }
