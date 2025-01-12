@@ -207,17 +207,18 @@ canvas.addEventListener("mousemove", (e) => {
     ctx.lineTo(e.clientX - canvasOffsetX, e.clientY);
     ctx.stroke();
 });
-
+// Start drawing
 const startDrawing = (x, y) => {
     isDrawing = true;
-    ctx.strokeStyle = strokeColor;
-    ctx.lineWidth = lineWidth;
     [lastX, lastY] = [x, y];
 };
 
 // Draw on canvas
 const draw = (x, y) => {
     if (!isDrawing) return;
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = strokeColor;
+    ctx.beginPath();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
     ctx.stroke();
@@ -227,11 +228,9 @@ const draw = (x, y) => {
 // Stop drawing
 const stopDrawing = () => {
     isDrawing = false;
-    ctx.stroke();
-    ctx.beginPath();
-    
+    ctx.closePath();
 };
-
+// Event handlers for touch
 canvas.addEventListener("touchstart", (e) => {
     const rect = canvas.getBoundingClientRect();
     const touch = e.touches[0];
@@ -239,7 +238,6 @@ canvas.addEventListener("touchstart", (e) => {
         if (!select) {
             startTimer();
         }
-        
     }
     startDrawing(touch.clientX - rect.left, touch.clientY - rect.top);
     e.preventDefault(); // Prevent scrolling
@@ -252,9 +250,8 @@ canvas.addEventListener("touchmove", (e) => {
     e.preventDefault(); // Prevent scrolling
 });
 
-canvas.addEventListener("touchend", () => {
-    stopDrawing();
-});
+canvas.addEventListener("touchend", stopDrawing);
+canvas.addEventListener("touchcancel", stopDrawing);
 
 function hasImageChanged(currentImage) {
     return currentImage !== oldImage;  // Compare current and previous base64 data
