@@ -11,7 +11,7 @@ const win = document.getElementById("winner");
 const reload = document.getElementById("reload");
 const popup = document.getElementById("popup");
 
-// Groq
+//Groq
 const apiKey = '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';
 let lastSentTime = 0;
 const API_LIMIT_INTERVAL = 5000; 
@@ -26,7 +26,7 @@ let timerStart = false;
 const brushPreview = document.createElement("div");
 document.body.appendChild(brushPreview);
 
-// Initialize brush size and styles
+// Initialize brush styles
 let lineWidth = 5;
 let strokeColor = "black"; // Default color
 const updateBrushPreview = () => {
