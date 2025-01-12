@@ -195,6 +195,7 @@ canvas.addEventListener("mousedown", (e) => {
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = lineWidth; // Ensure brush size matches
 });
+
 canvas.addEventListener("mouseup", () => {
     isPainting = false;
     ctx.stroke();
@@ -205,6 +206,41 @@ canvas.addEventListener("mousemove", (e) => {
     ctx.lineCap = "round";
     ctx.lineTo(e.clientX - canvasOffsetX, e.clientY);
     ctx.stroke();
+});
+
+const startDrawing = (x, y) => {
+    isDrawing = true;
+    [lastX, lastY] = [x, y];
+};
+
+// Draw on canvas
+const draw = (x, y) => {
+    if (!isDrawing) return;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    [lastX, lastY] = [x, y];
+};
+
+// Stop drawing
+const stopDrawing = () => {
+    isDrawing = false;
+    ctx.closePath();
+};
+
+canvas.addEventListener("touchstart", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    startDrawing(touch.clientX - rect.left, touch.clientY - rect.top);
+    e.preventDefault(); // Prevent scrolling
+});
+
+canvas.addEventListener("touchmove", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    draw(touch.clientX - rect.left, touch.clientY - rect.top);
+    e.preventDefault(); // Prevent scrolling
 });
 
 function hasImageChanged(currentImage) {
