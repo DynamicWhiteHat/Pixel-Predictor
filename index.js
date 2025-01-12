@@ -208,36 +208,53 @@ canvas.addEventListener("mousemove", (e) => {
     ctx.stroke();
 });
 
+const startDrawing = (x, y) => {
+    isDrawing = true;
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = lineWidth;
+    [lastX, lastY] = [x, y];
+};
+
+// Draw on canvas
+const draw = (x, y) => {
+    if (!isDrawing) return;
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    [lastX, lastY] = [x, y];
+};
+
+// Stop drawing
+const stopDrawing = () => {
+    isDrawing = false;
+    ctx.stroke();
+    ctx.beginPath();
+    
+};
 
 canvas.addEventListener("touchstart", (e) => {
-    console.log(timerStart);
-    console.log(select);
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
     if(!timerStart) {
         if (!select) {
             startTimer();
         }
         
     }
-    isPainting = true;
-    ctx.strokeStyle = strokeColor;
-    ctx.lineWidth = lineWidth;
+    startDrawing(touch.clientX - rect.left, touch.clientY - rect.top);
     e.preventDefault(); // Prevent scrolling
-
 });
 
 canvas.addEventListener("touchmove", (e) => {
-    if (!isPainting) return;
-    ctx.lineCap = "round";
-    ctx.lineTo(e.clientX - canvasOffsetX, e.clientY);
-    ctx.stroke();
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    draw(touch.clientX - rect.left, touch.clientY - rect.top);
     e.preventDefault(); // Prevent scrolling
 });
 
 canvas.addEventListener("touchend", () => {
-    isPainting = false;
-    ctx.stroke();
-    ctx.beginPath();
-})
+    stopDrawing();
+});
 
 function hasImageChanged(currentImage) {
     return currentImage !== oldImage;  // Compare current and previous base64 data
