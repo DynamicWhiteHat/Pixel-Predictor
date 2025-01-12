@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #efefef; /* Set a solid background color */
+    background-image: radial-gradient(circle, rgba(128, 128, 128, 0.5) 10%, transparent 10%); /* Change to gray */
+    background-size: 25px 25px; /* Adjust the size of the dots */
+}
+
+h1 {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+    text-decoration: overline underline white;
+    font-size: 25px;
+    text-underline-offset: 5px; 
+    
+}
+h2 {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 0;
+    
+}
+h3 {
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 0;
+    
+}
+p {
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    text-align: center;
+    
+}
+.container {
+    height: 100%;
+    display: flex;
+}
+
+#toolbar {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 200px;
+    background-color: #071215;
+    gap: 5px;
+}
+
+#tools {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#tools * {
+    margin-bottom: 20px;
+}
+#tools button {
+    font-family: "Roboto", sans-serif;
+    background-color: #53656D;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    padding: 10px;
+    position: relative;
+}
+
+#tools button:hover {
+    transform: translateY(-2px);
+}
+#popup button {
+    font-family: "Roboto", sans-serif;
+    background-color: #53656D;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    padding: 10px;
+    position: relative;
+}
+
+#popup button:hover {
+    transform: translateY(-2px);
+}
+.slider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;  
+    background: #53656D;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+  
+.slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 25px;
+height: 25px;
+border-radius: 50%; 
+background: white;
+cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+width: 25px;
+height: 25px;
+border-radius: 50%;
+background: #53656D;
+cursor: pointer;
+}
+#mode {
+    border: none;
+    font-family: "Roboto", sans-serif;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    color:white;
+    background-color: #53656D;
+    font-size: 15px;
+}
+
+
+#toolbar label {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#tools label {
+    color: white;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio'].red:after {
+    background-color: red;
+}
+input[type='radio'].orange:after {
+    background-color: orange;
+}
+input[type='radio'].yellow:after {
+    background-color: yellow;
+}
+input[type='radio'].green:after {
+    background-color: green;
+}
+input[type='radio'].blue:after {
+    background-color: blue;
+}
+input[type='radio'].indigo:after {
+    background-color: indigo;
+}
+input[type='radio'].brown:after {
+    background-color: brown;
+}
+input[type='radio'].black:after {
+    background-color: black;
+}
+
+input[type='radio']:checked:after {
+    width: 18px;
+    height: 18px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    transform: translateY(-2px);
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #071215;
+    border-radius: 10px;
+    width: 450px;
+    height: 300px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1), 0 0 0 1000px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    visibility: hidden;
+}
+
+.popup.active {
+    visibility: visible;
+}

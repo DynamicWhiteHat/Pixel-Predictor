@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Pixel Predictor</title>
+</head>
+<body>
+    <section class="container">
+        <div id="toolbar">
+            <h1>Pixel Predictor</h1>
+            <label for="mode">Difficulty</label>
+            <select name="mode" id="mode">
+                <option value="" selected>Select a mode</option>
+                <option value="normal" >Normal</option>
+                <option value="hard">Hard</option>
+            </select>
+            <h3>Draw: <span id="prompt">Select a mode to start</span></h3>
+            <div id="tools">
+                <h2>Tools</h2>
+                <div id="color-picker" class="hidden">
+                        <input type="radio" name="color" value="red" class="red">
+                        <input type="radio" name="color" value="orange" class="orange">
+                        <input type="radio" name="color" value="yellow" class="yellow">
+                        <input type="radio" name="color" value="green" class="green">
+                        <input type="radio" name="color" value="blue" class="blue">
+                        <input type="radio" name="color" value="indigo" class="indigo">
+                        <input type="radio" name="color" value="violet" class="brown">
+                        <input type="radio" name="color" value="black" class="black" checked> 
+                </div>
+                <button id="draw">Draw</button>
+                <button id="erase">Erase</button>
+                <button id="clear">Clear</button>
+                <label for="range">Size: <span id="sizeValue">5</span></label>
+                <input title="range" type="range" min="1" max="10" value="5" class="slider" id="myRange">
+                <h3><span id="response">Select a mode to begin</span></h3>
+                <h3>Time: <span id="timerDisplay">0:00</span></h3>
+            </div>
+        </div>  
+        <div class="drawing-board">
+            <canvas id="drawing-board"></canvas>
+        </div>
+        <div class="popup" id="popup">
+            <h2 id="winner"></h2>
+            <h2>You Win!</h2>
+            <p id="timerSet"></p>
+            <h3>Reload the page to play again!</h3>
+            <button id="export">Download drawing</button>
+        </div>
+    </section>
+    <script src="index.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
