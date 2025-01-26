@@ -12,7 +12,7 @@ const reload = document.getElementById("reload");
 const popup = document.getElementById("popup");
 
 //Groq
-const apiKey = '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';
+const apiKey = process.env.jsApiKey;
 let lastSentTime = 0;
 const API_LIMIT_INTERVAL = 5000; 
 
