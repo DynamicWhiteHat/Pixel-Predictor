@@ -23,7 +23,7 @@ jobs:
         jsApiKey: ${{ secrets.apiKey }}  # Your secret reference
 
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@v3
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
