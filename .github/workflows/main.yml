@@ -7,23 +7,23 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    environment: GitHub Pages  # Reference your environment here
 
     steps:
     
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2  # Use the latest stable version
 
     - name: Build
       run: |
         npm install
         npm run-script build
       env:
-        jsApiKey: ${{ secrets.apiKey }}
+        jsApiKey: ${{ secrets.apiKey }}  # Your secret reference
 
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+      uses: JamesIves/github-pages-deploy-action@v3
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
