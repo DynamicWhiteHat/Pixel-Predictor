@@ -26,6 +26,9 @@ let timerStart = false;
 const brushPreview = document.createElement("div");
 document.body.appendChild(brushPreview);
 
+let aiCode = "";
+const codes = ["mouseUp", "mouseDown", "mouseMove", "clear"]
+
 // Initialize brush styles
 let lineWidth = 5;
 let strokeColor = "black"; // Default color
@@ -257,7 +260,48 @@ function hasImageChanged(currentImage) {
     return currentImage !== oldImage;  // Compare current and previous base64 data
 }
 
-async function sendtoAI() {
+// async function imageFromAI() {
+//     console.log("Getting from AI");
+//     let prompt = prompt_text.textContent.toLowerCase();
+//     const response1 = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+//         method: 'POST',
+//         headers: {
+//             'Authorization': `Bearer ${apiKey}`,
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             model: "meta-llama/llama-4-maverick-17b-128e-instruct",
+//             messages: [
+//               {
+//                 "role": "user",
+//                 "content": [
+//                   {
+//                     "type": "text",
+//                     "text": "You are an AI tasked with playing Pictionary with a human. Your drawing board is online, with a height of " + canvas.height + " px and a width of " + canvas.width + " px. You must draw a "+ prompt + ". To start drawing, send a response that only consists of the following: mouseDown(), mouseMove(direction(left,right,up,down), steps(px)), mouseUp(). For mouse move, you must  supply the parameters, such as mouseMove(left, 50).",
+//                   }//,
+//                 //   {
+//                 //     "type": "image_url",
+//                 //     "image_url": {
+//                 //       "url": `data:image/jpeg;base64,${base64Image}`
+//                 //     }
+//                 //   }
+//                 ]
+//               }
+//             ]
+//         })
+//     });
+
+//     const data1 = await response1.json();
+//     console.log('First response:', data1);
+//     if (!response1.ok || !data1.choices?.[0]?.message?.content) {
+//         throw new Error(data1.error?.message || 'Invalid response from API');
+//     }
+//     let airesponse = data1.choices[0].message.content
+//     console.log(airesponse);
+//     aiCode = airesponse;
+// }
+
+async function imageToAI() {
     console.log("Testing");
     currentImage = canvas.toDataURL("image/png");
     const now = Date.now();
@@ -294,7 +338,7 @@ async function sendtoAI() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            model: "llama-3.2-90b-vision-preview",
+            model: "meta-llama/llama-4-maverick-17b-128e-instruct",
             messages: [
               {
                 "role": "user",
@@ -320,7 +364,7 @@ async function sendtoAI() {
     if (!response1.ok || !data1.choices?.[0]?.message?.content) {
         throw new Error(data1.error?.message || 'Invalid response from API');
     }
-    let airesponse = data1.choices[0].message.content
+    let airesponse = data1.choices[0].message.content;
     console.log(airesponse);
     responsetext.textContent = "AI Response: " + airesponse;
     if (airesponse.toLowerCase().includes(prompt_text.textContent.toLowerCase())) {
@@ -416,6 +460,16 @@ document.addEventListener("DOMContentLoaded", () => {
             select=false;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             responsetext.textContent =  "Start drawing to begin"
+        } else if (modeSelect.value === "aiDraw") {
+            gameMode = "AI";
+            reload.classList.remove("hide");
+            reload.classList.add('show');
+            prompt_text.textContent = easyPrompt;
+            clearTimer();
+            colorOptions.style.display = "none";
+            select=false;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            responsetext.textContent =  "Start drawing to begin"
         }
         else {
             reload.classList.remove("show");
@@ -437,10 +491,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
 // Periodic AI sending
 setInterval(() => {
     if (!finished) {
-    sendtoAI();
+        console.log(gameMode)
+    if (gameMode == "normal" || gameMode == "hard") {
+        console.log("imagemode")
+        imageToAI();
+    }
+    // else if (gameMode == "AI") {
+    //     imageFromAI();
+    // }
     }
 }, 5000);
+
